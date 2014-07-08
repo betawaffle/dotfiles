@@ -1,0 +1,8 @@
+[user]
+  name  =
+  email =
+
+# GitHub Credentials
+[github]
+  user  =
+  token =

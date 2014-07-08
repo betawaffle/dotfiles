@@ -1,0 +1,41 @@
+#!/usr/bin/env zsh
+
+set -e
+setopt EXTENDED_GLOB
+self=$(dirname $0:A:h)
+
+cd "$HOME"
+if [[ ! "$self" -ef .dotfiles ]]; then
+  ln -s "$self" .dotfiles
+fi
+
+typeset -A dotfiles
+dotfiles=(
+  ".zprezto"   ".dotfiles/zsh"
+  ".zpreztorc" ".zprezto/runcoms/prezto.zsh"
+  ".zshenv"    ".zprezto/runcoms/env.zsh"
+  ".zlogin"    ".zprezto/runcoms/login.zsh"
+  ".zprofile"  ".zprezto/runcoms/profile.zsh"
+  ".zshrc"     ".zprezto/runcoms/rc.zsh"
+  ".zlogout"   ".zprezto/runcoms/logout.zsh"
+
+  ".gitaliases"    ".dotfiles/git/aliases"
+  ".gitattributes" ".dotfiles/git/attributes"
+  ".gitcolors"     ".dotfiles/git/colors"
+  ".gitconfig"     ".dotfiles/git/config"
+  ".gitexcludes"   ".dotfiles/git/excludes"
+  ".githubconfig"  ".dotfiles/git/github"
+)
+
+for k in "${(@k)dotfiles}"; do
+  rcfile="$dotfiles[$k]"
+  dest="$HOME/$k"
+  if [[ "$rcfile" -ef "$dest" || -h "$dest" ]]; then
+    unlink "$dest"
+  elif [[ -e "$dest" ]]; then
+    mv "$dest" "$dest".bak
+  fi
+
+  echo "Linking $dest -> $rcfile"
+  ln -s "$rcfile" "$dest"
+done

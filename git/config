@@ -1,0 +1,27 @@
+[core]
+  excludesfile   = ~/.gitexcludes
+  attributesfile = ~/.gitattributes
+
+[include]
+  path = ~/.githubconfig
+  path = ~/.gitaliases
+  path = ~/.gitcolors
+
+# Diff
+[diff]
+  algorithm = patience
+  mnemonicprefix = true
+  renames = copies
+[difftool]
+  prompt = false
+
+# Kaleidoscope
+[diff]
+  tool    = ksdiff
+  guitool = ksdiff
+[difftool "ksdiff"]
+  cmd = "ksdiff $LOCAL $REMOTE"
+
+# Rerere
+[rerere]
+  enabled = true

@@ -1,0 +1,77 @@
+[alias]
+  br = branch
+  ci = commit   # Short for Check In
+  cl = clone
+  co = checkout # Short for Check Out
+  ff = merge --ff-only
+  st = status -s
+
+# Assumptions
+[alias]
+  assume      = update-index --assume-unchanged
+  assumeall   = "!git st -s | awk {'print $2'} | xargs git assume"
+  assumed     = "!git ls-files -v | grep ^h | cut -c 3-"
+  unassume    = update-index --no-assume-unchanged
+  unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+
+# Misc Helpers
+[alias]
+  aliases   = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+  branches  = branch -va
+  conflicts = diff HEAD...MERGE_HEAD
+  discard   = checkout --
+  stage     = add
+  staged    = diff --cached
+  unstage   = rm --cached
+
+  aa = add --all    # Add All
+  na = add --intend-to-add
+  pa = add --patch  # Choose What to Add
+  ua = add --update # Stage Changes in Added Files
+
+  ia = add --interactive
+  ir = rebase --interactive
+
+  dt = difftool
+
+  # Rebase
+  rb      = rebase
+  rbi     = rebase --interactive
+  rbo     = rebase --onto
+  rb-stop = rebase --abort
+  rb-skip = rebase --skip
+  rb-next = rebase --continue
+
+  # Log
+  lg = log --graph --pretty=tformat:'%C(bold blue)%h%Creset %C(bold)%s%Creset %C(bold green)%cn%Creset %C(bold magenta)%cr%Creset%C(bold yellow)%d%Creset'
+
+  pop = reset --soft HEAD^
+
+  sub = submodule
+  si  = submodule init
+  su  = submodule update
+
+  # Misc
+  conf      = config
+  scrap     = checkout HEAD
+  last      = cat-file commit HEAD
+  stat      = diff --stat
+  tags      = tag -l
+  ignored   = "!git status --porcelain --short --ignored | sed -n 's/^!! //p'"
+  untracked = ls-files --others
+
+  snapshot  = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+
+  # Legit
+  # switch    = !legit switch \"$@\"
+  # branches  = !legit branches
+  # sprout    = !legit sprout \"$@\"
+  # unpublish = !legit unpublish \"$@\"
+  # harvest   = !legit harvest \"$@\"
+  # sync      = !legit sync \"$@\"
+  # publish   = !legit publish \"$@\"
+  # graft     = !legit graft \"$@\"
+
+  # Web
+  # web = instaweb
+  # web-stop = instaweb --stop
