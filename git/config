@@ -1,6 +1,8 @@
 [core]
-  excludesfile   = ~/.gitexcludes
+  excludesfile = ~/.gitexcludes
   attributesfile = ~/.gitattributes
+  autocrlf = input
+  trustctime = false
 
 [include]
   path = ~/.githubconfig
@@ -17,7 +19,7 @@
 
 # Kaleidoscope
 [diff]
-  tool    = ksdiff
+  tool = ksdiff
   guitool = ksdiff
 [difftool "ksdiff"]
   cmd = "ksdiff $LOCAL $REMOTE"
@@ -25,3 +27,8 @@
 # Rerere
 [rerere]
   enabled = true
+
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
